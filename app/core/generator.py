@@ -30,6 +30,7 @@ class OTPGenerator:
         __ttl (int): Time-to-live in seconds for the OTP. Defaults to 3600 seconds (1 hour).
         __otp (str, None): The generated OTP. None until an OTP is generated.
         __otp_info (dict, None): Information about the generated OTP. None until an OTP is generated.
+        __otp_id (str, None): A unique identifier for the OTP. None until an OTP is generated.
 
     Methods:
         generate_otp(): Generates a random OTP based on the specified length and alphanumeric flag.
@@ -48,7 +49,6 @@ class OTPGenerator:
         length: int = 6,
         alphanumeric: bool = False,
         ttl: int = 3600,
-        generate: bool = True,
         **kwargs
     ):
 
@@ -86,12 +86,13 @@ class OTPGenerator:
         self.__ttl = ttl
         self.__otp = None
         self.__otp_info = None
+        self.__otp_id = str(uuid.uuid4())
         self.otp_dict = None
 
         # Generate OTP and meta
-        if generate:
-            self.otp_dict = self.get_otp()
-            self.otp = self.otp_dict["otp"]
+        self.otp_dict = self.get_otp()
+        self.otp = self.otp_dict["otp"]
+        self.otp_id = self.__otp_id
 
     def generate_otp(self) -> None:
         """
@@ -133,7 +134,7 @@ class OTPGenerator:
         """
 
         self.__meta = {
-            "id": str(uuid.uuid4()),
+            "id": self.__otp_id,
         }
 
     def get_otp(self) -> dict:
