@@ -3,3 +3,4 @@ ipython
 FLask
 requests
 pytest
+black
