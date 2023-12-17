@@ -64,8 +64,8 @@ class OTPGenerator:
             **kwargs: Additional keyword arguments.
         """
         # Validate length
-        if not isinstance(length, int) or length <= 0:
-            raise ValueError("Length must be a positive integer.")
+        if not isinstance(length, int) or length < 1 or length > 32:
+            raise ValueError("Length must be a positive integer below 32")
 
         # Validate alphanumeric
         if not isinstance(alphanumeric, bool):
@@ -91,6 +91,7 @@ class OTPGenerator:
         # Generate OTP and meta
         if generate:
             self.otp_dict = self.get_otp()
+            self.otp = self.otp_dict["otp"]
 
     def generate_otp(self) -> None:
         """

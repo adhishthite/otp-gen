@@ -20,7 +20,7 @@ class TestOTPGenerator:
         (8, False, 8, 'isnumeric'),
         (None, True, 6, 'isalnum'),
         (8, True, 8, 'isalnum'),
-        (100, False, 100, 'isalnum'),
+        (16, False, 16, 'isalnum'),
     ])
     def test_generate_otp(self, length, alphanumeric, length_expected, check_method):
         """
